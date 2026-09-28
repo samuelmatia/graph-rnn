@@ -46,7 +46,7 @@ class EdgeLevelRNN(nn.Module):
         return h0.unsqueeze(0).repeat(self.num_layers, 1, 1).contiguous()
 
     def forward(self, x, hidden):
-        x=self.input_emnbed(x)
+        x=self.input_embed(x)
         out, hidden=self.rnn(x, hidden)
         logits=self.output(out).squeeze(-1)
         return torch.sigmoid(logits), hidden

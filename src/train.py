@@ -2,7 +2,7 @@
 Train GraphRNN
 
 Usage:
-    python -m src.train --dataset community --variant rnn --epochs 3000
+    python -m src.train --dataset community --variant rnn --epochs 3
 """
 
 import argparse
@@ -12,14 +12,14 @@ from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 
 from src.data import get_dataset, GraphSeqDataset
-from src.models.GraphRNN.model import GraphRNN
-from src.models.GraphRNN.utils import make_mask
+from src.model.model import GraphRNN
+from src.model.utils import make_mask
 
 def parse_args():
     p=argparse.ArgumentParser()
     p.add_argument("--dataset", choices=["community", "grid", "ego"], required=True)
     p.add_argument("--variant", choices=["rnn", "s"], default="rnn")
-    p.add_argument("--epochs", type=int, default=1000)
+    p.add_argument("--epochs", type=int, default=5)
     p.add_argument("--batch_size", type=int, default=32)
     p.add_argument("--lr", type=float, default=0.001)
     p.add_argument("--graph_hidden", type=int, default=128)
@@ -40,7 +40,7 @@ def main():
 
     train_graphs, test_graphs, max_num_node, max_prev_node=get_dataset(args.dataset, data_dir=args.data_dir, seed=args.seed)
     print(f"[{args.dataset}] train={len(train_graphs)} test={len(test_graphs)}" 
-          f"max_num_node={max_num_node} max_prev_node={max_prev_node}")
+          f" max_num_node={max_num_node} max_prev_node={max_prev_node}")
 
     train_ds=GraphSeqDataset(train_graphs, max_prev_node, max_num_node)
     loader=DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, drop_last=True)
@@ -83,7 +83,7 @@ def main():
         avg_loss=epoch_loss/max(1,n_batches)
         losses.append(avg_loss)
 
-        if epoch%50==0 or epoch==1:
+        if epoch%1==0 or epoch==1:
             print(f"epoch {epoch}/{args.epochs} loss={avg_loss:.4f} lr={scheduler.get_last_lr()[0]:.4f}")
 
         if epoch%args.save_every==0 or epoch==args.epochs:

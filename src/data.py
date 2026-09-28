@@ -5,7 +5,7 @@ import numpy as np
 import networkx as nx
 import torch
 from torch.utils.data import Dataset
-from src.models.GraphRNN.utils import graph_to_sequence, compute_max_prev_node
+from src.model.utils import graph_to_sequence, compute_max_prev_node
 
 
 #Synthetic/real graph generators

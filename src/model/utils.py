@@ -30,14 +30,14 @@ def encode_adj(adj, max_prev_node):
 def decode_adj(S):
     n=S.shape[0]+1
     M=S.shape[1]
-    adj=np.zeros((n,n), dtype=float32)
+    adj=np.zeros((n,n), dtype=np.float32)
     for i in range(1, n):
         row=S[i-1]
         num_prev=min(i,M)
         for k in range(num_prev):
             j=i-1-k
             adj[i, j]=row[k]
-    return ajd+adj.T  #undirected graph
+    return adj+adj.T  #undirected graph
 
 
 def graph_to_sequence(G, max_prev_node, max_num_node=None):

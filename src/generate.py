@@ -2,7 +2,7 @@
 Sample graphs from a trained GraphRNN checkpoint.
 
 Usage:
-    python -m src.generate --checkpoint outputs/checkpoints/community_rnn_epoch3000.pt --num_graphs 50
+    python -m src.generate --checkpoint outputs/checkpoints/community_rnn_epoch_5.pt --num_graphs 2
 """
 
 import argparse
@@ -12,8 +12,8 @@ import torch
 import networkx as nx
 import matplotlib.pyplot as plt
 
-from src.models.GraphRNN.model import GraphRNN
-from src.models.GraphRNN.utils import sequence_to_graph
+from src.model.model import GraphRNN
+from src.model.utils import sequence_to_graph
 
 def parse_args():
     p=argparse.ArgumentParser()
